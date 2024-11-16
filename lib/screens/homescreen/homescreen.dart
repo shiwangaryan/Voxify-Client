@@ -116,7 +116,7 @@ class HomeScreen extends StatelessWidget {
                 items: bottomNavbarItems,
                 currentIndex: state.tabIndex,
                 selectedItemColor: Colors.white,
-                unselectedItemColor: Colors.grey,
+                unselectedItemColor: Colors.white.withOpacity(0.7),
                 selectedFontSize: 11,
                 unselectedFontSize: 11,
                 iconSize: 26,
