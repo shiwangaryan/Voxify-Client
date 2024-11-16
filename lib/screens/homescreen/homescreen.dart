@@ -11,7 +11,7 @@ List<BottomNavigationBarItem> _buildBottomNavbarItems(int selectedIndex) => [
         icon: Padding(
           padding: const EdgeInsets.only(bottom: 1.0),
           child: Icon(
-            selectedIndex== 0? Icons.home_filled : Symbols.home_filled_sharp,
+            selectedIndex == 0 ? Icons.home_filled : Symbols.home_filled_sharp,
             // selectedIndex == 0 ? Icons.home_filled : Icons.home_outlined,
           ),
         ),
@@ -93,7 +93,11 @@ class HomeScreen extends StatelessWidget {
                   flexibleSpace: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SvgPicture.asset('assets/images/logo.svg', width: 30),
+                      SvgPicture.asset(
+                        'assets/images/logo.svg',
+                        width: 30,
+                        color: Colors.teal[200],
+                      ),
                       const SizedBox(width: 10),
                       const Text(
                         'VOXIFY',
@@ -136,7 +140,7 @@ class HomeScreen extends StatelessWidget {
                 currentIndex: state.tabIndex,
                 selectedItemColor: Colors.white,
                 unselectedItemColor: Colors.white.withOpacity(0.7),
-                selectedFontSize: 12 ,
+                selectedFontSize: 12,
                 unselectedFontSize: 12,
                 selectedLabelStyle: TextStyle(letterSpacing: -0.2),
                 iconSize: 27,
