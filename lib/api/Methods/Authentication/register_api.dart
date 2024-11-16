@@ -17,7 +17,7 @@ Future<bool> registerUserAPI(UserModel user) async {
     return true;
   }
   else {
-    print("Error in registering user: ${response.body}");
+    print("Error in registering user: ${json.decode(response.body)['message']}");
     return false;
   }
 }
