@@ -7,6 +7,7 @@ import 'package:voxify_client/services/bloc/navigation/navigation_bloc.dart';
 import 'package:voxify_client/utils/constants.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -24,7 +25,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // textTheme: GoogleFonts.poppinsTextTheme(),
         textTheme: GoogleFonts.poppinsTextTheme(ThemeData.light().textTheme),
         useMaterial3: true,
       ),
