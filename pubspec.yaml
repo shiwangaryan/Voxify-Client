@@ -41,6 +41,7 @@ dependencies:
   path_provider: ^2.1.5
   material_symbol_icons: ^0.0.1
   material_symbols_icons: ^4.2799.0
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:
