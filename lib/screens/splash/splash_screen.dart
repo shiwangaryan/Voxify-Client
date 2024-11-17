@@ -5,12 +5,18 @@ import 'package:voxify_client/screens/splash/widgets/get_started_button.dart';
 import 'package:voxify_client/screens/splash/widgets/login_popup.dart';
 import 'package:voxify_client/services/bloc/auth_popup/auth_popup_bloc.dart';
 
-class LandingPage extends StatelessWidget {
+class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
+
+  @override
+  State<LandingPage> createState() => _LandingPageState();
+}
+
+class _LandingPageState extends State<LandingPage> {
+  bool popupOpen = false;
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-    bool popupOpen = false;
     // final width = MediaQuery.of(context).size.width;
     return BlocBuilder<AuthPopupBloc, AuthPopupState>(
       buildWhen: (previous, current) {
@@ -85,7 +91,6 @@ class LandingPage extends StatelessWidget {
                     popupOpen
                         ? const SizedBox(height: 45)
                         : SizedBox(height: height * 0.18),
-
                     AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
                       // width: popupOpen ? width * 0.9 : width * 0.98,

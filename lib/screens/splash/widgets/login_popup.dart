@@ -11,8 +11,9 @@ class LoginPopup extends StatefulWidget {
 }
 
 class _LoginPopupState extends State<LoginPopup> {
-  bool loginPopup = false;
   TextEditingController usernameController = TextEditingController();
+  bool loginPopup = false;
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;

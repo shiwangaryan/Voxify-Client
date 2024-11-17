@@ -26,7 +26,7 @@ class _GestStartedButtonState extends State<GestStartedButton> {
           });
         });
         Future.delayed(
-          const Duration(milliseconds: 100),
+          const Duration(milliseconds: 200),
           () {
             context.read<AuthPopupBloc>().add(AuthPopupChangedTo(1));
           },
