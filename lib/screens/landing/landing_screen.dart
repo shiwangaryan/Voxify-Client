@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:voxify_client/screens/splash/widgets/get_started_button.dart';
-import 'package:voxify_client/screens/splash/widgets/login_popup.dart';
+import 'package:voxify_client/screens/landing/widgets/get_started_button.dart';
+import 'package:voxify_client/screens/landing/widgets/login_popup.dart';
 import 'package:voxify_client/services/bloc/auth_popup/auth_popup_bloc.dart';
 
 class LandingPage extends StatefulWidget {
@@ -17,6 +17,7 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     // final width = MediaQuery.of(context).size.width;
     return BlocBuilder<AuthPopupBloc, AuthPopupState>(
       buildWhen: (previous, current) {
@@ -75,12 +76,16 @@ class _LandingPageState extends State<LandingPage> {
                                     ),
                                   ),
                                   padding: const EdgeInsets.only(
-                                      top: 6, left: 7, bottom: 6),
+                                    top: 5,
+                                    left: 5,
+                                    bottom: 5,
+                                    right: 5,
+                                  ),
                                   child: const Center(
                                     child: Icon(
-                                      Icons.arrow_back_ios,
+                                      Icons.close_rounded,
                                       color: Colors.white,
-                                      size: 18,
+                                      size: 20,
                                     ),
                                   ),
                                 ),
@@ -94,7 +99,8 @@ class _LandingPageState extends State<LandingPage> {
                     AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
                       // width: popupOpen ? width * 0.9 : width * 0.98,
-                      height: popupOpen ? height * 0.4 : height * 0.485,
+                      width: width * 0.98,
+                      height: popupOpen ? height * 0.42 : height * 0.5,
                       transform: popupOpen
                           ? Matrix4.translationValues(0, -40, 0)
                           : Matrix4.translationValues(0, 0, 0),
@@ -103,7 +109,7 @@ class _LandingPageState extends State<LandingPage> {
                         fit: BoxFit.fitHeight,
                       ),
                     ),
-                    const SizedBox(height: 34),
+                    const SizedBox(height: 30),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -129,7 +135,7 @@ class _LandingPageState extends State<LandingPage> {
                     Text(
                       'start your podcast journey',
                       style: TextStyle(
-                        fontWeight: FontWeight.w100,
+                        fontWeight: FontWeight.w200,
                         fontSize: 16.5,
                         color: Colors.white.withOpacity(0.8),
                         wordSpacing: 2.5,
