@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:voxify_client/screens/authentication/registration_screen.dart';
 import 'package:voxify_client/screens/homescreen/homescreen.dart';
 import 'package:voxify_client/screens/splash/splash_screen.dart';
+import 'package:voxify_client/services/bloc/auth_popup/auth_popup_bloc.dart';
 import 'package:voxify_client/services/bloc/navigation/navigation_bloc.dart';
 import 'package:voxify_client/utils/constants.dart';
 
@@ -32,8 +33,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: BlocProvider(
-        create: (context) => NavigationBloc(),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => NavigationBloc()),
+          BlocProvider(create: (context) => AuthPopupBloc()),
+        ],
         // child: const HomeScreen(),
         child: const LandingPage(),
       ),
