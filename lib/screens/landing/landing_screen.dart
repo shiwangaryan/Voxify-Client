@@ -38,12 +38,19 @@ class _LandingPageState extends State<LandingPage> {
           body: AnimatedContainer(
             duration: const Duration(milliseconds: 300),
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: const [Color(0xff454756), Color(0xff0f101b)],
-                stops: popupOpen ? const [0.07, 0.8] : const [0.03, 0.28],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+              // gradient: LinearGradient(
+              //   colors: const [Color(0xff454756), Color(0xff0f101b)],
+              //   stops: popupOpen ? const [0.07, 0.8] : const [0.03, 0.28],
+              //   begin: Alignment.topLeft,
+              //   end: Alignment.bottomRight,
+              // ),
+              gradient: RadialGradient(
+                colors: const [Color(0xFF383A45), Color(0xff0f101b)],
+                stops: !popupOpen ? [0.15, 1] : [0.4, 1],
+                radius: !popupOpen ? 0.95 : 1.7,
+                center: Alignment.topLeft,
               ),
+              color: const Color(0xff0f101b),
             ),
             child: Stack(
               children: [
@@ -51,7 +58,7 @@ class _LandingPageState extends State<LandingPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     popupOpen
-                        ? const SizedBox(height: 50)
+                        ? SizedBox(height: height * 0.055)
                         : const SizedBox(
                             height: 0,
                           ),
@@ -62,9 +69,11 @@ class _LandingPageState extends State<LandingPage> {
                               const SizedBox(width: 18),
                               InkWell(
                                 onTap: () {
-                                  context.read<AuthPopupBloc>().add(
-                                        AuthPopupChangedTo(0),
-                                      );
+                                  context
+                                      .read<AuthPopupBloc>()
+                                      .add(AuthPopupChangedTo(0));
+                                  FocusScope.of(context)
+                                      .requestFocus(FocusNode());
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -75,12 +84,7 @@ class _LandingPageState extends State<LandingPage> {
                                       width: 2.5,
                                     ),
                                   ),
-                                  padding: const EdgeInsets.only(
-                                    top: 5,
-                                    left: 5,
-                                    bottom: 5,
-                                    right: 5,
-                                  ),
+                                  padding: const EdgeInsets.all(5),
                                   child: const Center(
                                     child: Icon(
                                       Icons.close_rounded,
