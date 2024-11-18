@@ -47,7 +47,7 @@ class _LandingPageState extends State<LandingPage> {
               gradient: RadialGradient(
                 colors: const [Color(0xFF383A45), Color(0xff0f101b)],
                 stops: !popupOpen ? [0.15, 1] : [0.4, 1],
-                radius: !popupOpen ? 0.95 : 1.7,
+                radius: !popupOpen ? 0.95 : 1.9,
                 center: Alignment.topLeft,
               ),
               color: const Color(0xff0f101b),

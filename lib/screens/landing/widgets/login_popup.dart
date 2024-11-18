@@ -19,6 +19,7 @@ class _LoginPopupState extends State<LoginPopup>
   bool loginPopup = false;
   bool usernameCorrect = false;
   bool isRegistrationSelected = false;
+  bool showLogin = true;
 
   //animation ------
   late AnimationController _animationController;
@@ -85,7 +86,7 @@ class _LoginPopupState extends State<LoginPopup>
       builder: (context, state) {
         return AnimatedContainer(
           curve: Curves.easeInOut,
-          duration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 320),
           height: loginPopup
               ? isRegistrationSelected
                   ? height
@@ -136,10 +137,15 @@ class _LoginPopupState extends State<LoginPopup>
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             InkWell(
-                              onTap: () {
+                              onTap: () async {
                                 FocusScope.of(context).unfocus();
                                 setState(() {
                                   isRegistrationSelected = false;
+                                });
+                                await Future.delayed(
+                                    const Duration(milliseconds: 200));
+                                setState(() {
+                                  showLogin = true;
                                 });
                               },
                               child: Container(
@@ -222,10 +228,15 @@ class _LoginPopupState extends State<LoginPopup>
 
                         // --- submit button ---
                         InkWell(
-                          onTap: () {
+                          onTap: () async {
                             FocusScope.of(context).unfocus();
                             setState(() {
                               isRegistrationSelected = false;
+                            });
+                            await Future.delayed(
+                                const Duration(milliseconds: 200));
+                            setState(() {
+                              showLogin = true;
                             });
                           },
                           child: Container(
@@ -250,9 +261,15 @@ class _LoginPopupState extends State<LoginPopup>
 
                         // --- sign in ---
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
+                            FocusScope.of(context).unfocus();
                             setState(() {
                               isRegistrationSelected = false;
+                            });
+                            await Future.delayed(
+                                const Duration(milliseconds: 200));
+                            setState(() {
+                              showLogin = true;
                             });
                           },
                           child: Row(
@@ -272,194 +289,201 @@ class _LoginPopupState extends State<LoginPopup>
                     )
                   :
                   // ------ LOGIN POPUP
-                  Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/images/logo.svg',
-                              height: 50,
-                              color: Colors.teal[300],
-                            ),
-                            const Spacer(),
-                            usernameCorrect
-                                ? InkWell(
-                                    onTap: () {
-                                      FocusScope.of(context).unfocus();
-                                      if (usernameCorrect) {
-                                        _animationController.reverse();
-                                        setState(() {
-                                          usernameCorrect = false;
-                                        });
-                                      }
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.transparent,
-                                        border: Border.all(
-                                          color: Colors.white.withOpacity(0.8),
-                                          width: 2.5,
-                                        ),
-                                      ),
-                                      padding: const EdgeInsets.only(
-                                          top: 7, left: 8, bottom: 7),
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.arrow_back_ios,
-                                          color: Colors.white.withOpacity(0.8),
-                                          size: 20,
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                : const SizedBox(),
-                          ],
-                        ),
-                        const SizedBox(height: 24),
-                        const Text(
-                          'Login',
-                          style: TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          !usernameCorrect
-                              ? 'Continue with username'
-                              : 'Enter your password',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white.withOpacity(0.6),
-                          ),
-                        ),
-                        const SizedBox(height: 26),
-                        SizedBox(
-                          height: 50,
-                          child: Stack(
+                  AnimatedOpacity(
+                      duration: const Duration(milliseconds: 300),
+                      opacity: showLogin ? 1 : 0,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              SlideTransition(
-                                position: _usernameOffset,
-                                child: TextField(
-                                  maxLength: 40,
-                                  cursorColor: Colors.teal[100],
-                                  decoration: InputDecoration(
-                                    counterText: '',
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
-                                        color: Colors.white.withOpacity(0.4),
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
-                                        color: Colors.teal[100]!,
-                                      ),
-                                    ),
-                                    hintText: 'Username',
-                                    hintStyle: TextStyle(
-                                      color: Colors.white.withOpacity(0.8),
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                  ),
-                                  controller: usernameController,
-                                ),
+                              SvgPicture.asset(
+                                'assets/images/logo.svg',
+                                height: 50,
+                                color: Colors.teal[300],
                               ),
-                              SlideTransition(
-                                position: _passwordOffset,
-                                child: TextField(
-                                  maxLength: 40,
-                                  cursorColor: Colors.teal[100],
-                                  decoration: InputDecoration(
-                                    counterText: '',
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
-                                        color: Colors.white.withOpacity(0.4),
+                              const Spacer(),
+                              usernameCorrect
+                                  ? InkWell(
+                                      onTap: () {
+                                        FocusScope.of(context).unfocus();
+                                        if (usernameCorrect) {
+                                          _animationController.reverse();
+                                          setState(() {
+                                            usernameCorrect = false;
+                                          });
+                                        }
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.transparent,
+                                          border: Border.all(
+                                            color:
+                                                Colors.white.withOpacity(0.8),
+                                            width: 2.5,
+                                          ),
+                                        ),
+                                        padding: const EdgeInsets.only(
+                                            top: 7, left: 8, bottom: 7),
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.arrow_back_ios,
+                                            color:
+                                                Colors.white.withOpacity(0.8),
+                                            size: 20,
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
-                                        color: Colors.teal[100]!,
-                                      ),
-                                    ),
-                                    hintText: 'Password',
-                                    hintStyle: TextStyle(
-                                      color: Colors.white.withOpacity(0.8),
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                  ),
-                                  controller: passwordController,
-                                ),
-                              ),
+                                    )
+                                  : const SizedBox(),
                             ],
                           ),
-                        ),
-                        const SizedBox(height: 26),
-                        InkWell(
-                          onTap: () {
-                            FocusScope.of(context).unfocus();
-                            if (!usernameCorrect) {
-                              _animationController.forward();
+                          const SizedBox(height: 24),
+                          const Text(
+                            'Login',
+                            style: TextStyle(
+                              fontSize: 35,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            !usernameCorrect
+                                ? 'Continue with username'
+                                : 'Enter your password',
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white.withOpacity(0.6),
+                            ),
+                          ),
+                          const SizedBox(height: 26),
+                          SizedBox(
+                            height: 50,
+                            child: Stack(
+                              children: [
+                                SlideTransition(
+                                  position: _usernameOffset,
+                                  child: TextField(
+                                    maxLength: 40,
+                                    cursorColor: Colors.teal[100],
+                                    decoration: InputDecoration(
+                                      counterText: '',
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide(
+                                          color: Colors.white.withOpacity(0.4),
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide(
+                                          color: Colors.teal[100]!,
+                                        ),
+                                      ),
+                                      hintText: 'Username',
+                                      hintStyle: TextStyle(
+                                        color: Colors.white.withOpacity(0.8),
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                    ),
+                                    controller: usernameController,
+                                  ),
+                                ),
+                                SlideTransition(
+                                  position: _passwordOffset,
+                                  child: TextField(
+                                    maxLength: 40,
+                                    cursorColor: Colors.teal[100],
+                                    decoration: InputDecoration(
+                                      counterText: '',
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide(
+                                          color: Colors.white.withOpacity(0.4),
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide(
+                                          color: Colors.teal[100]!,
+                                        ),
+                                      ),
+                                      hintText: 'Password',
+                                      hintStyle: TextStyle(
+                                        color: Colors.white.withOpacity(0.8),
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                    ),
+                                    controller: passwordController,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 26),
+                          InkWell(
+                            onTap: () {
+                              FocusScope.of(context).unfocus();
+                              if (!usernameCorrect) {
+                                _animationController.forward();
+                                setState(() {
+                                  usernameCorrect = true;
+                                });
+                              }
+                            },
+                            child: Container(
+                              height: 55,
+                              decoration: BoxDecoration(
+                                color: Colors.teal[400],
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  !usernameCorrect ? 'Next' : 'Login',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 19,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          GestureDetector(
+                            onTap: () {
                               setState(() {
-                                usernameCorrect = true;
+                                showLogin = false;
+                                isRegistrationSelected = true;
                               });
-                            }
-                          },
-                          child: Container(
-                            height: 55,
-                            decoration: BoxDecoration(
-                              color: Colors.teal[400],
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Center(
-                              child: Text(
-                                !usernameCorrect ? 'Next' : 'Login',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 19,
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Create new account?',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.blue[200],
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              isRegistrationSelected = true;
-                            });
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Create new account?',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.blue[200],
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
             ),
           ),
