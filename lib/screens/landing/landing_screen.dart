@@ -14,11 +14,17 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   bool popupOpen = false;
+  bool isRegistrationSelected = false;
+
+  void toggleRegistrationCallback() {  // to set the resizebottominset accoridngly
+    setState(() {
+      isRegistrationSelected = !isRegistrationSelected;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    // final width = MediaQuery.of(context).size.width;
     return BlocBuilder<AuthPopupBloc, AuthPopupState>(
       buildWhen: (previous, current) {
         if (current is AuthPopupStateChange) {
@@ -35,9 +41,10 @@ class _LandingPageState extends State<LandingPage> {
       },
       builder: (context, state) {
         return Scaffold(
-          resizeToAvoidBottomInset: true,
+          resizeToAvoidBottomInset: isRegistrationSelected? false: true,
+          // resizeToAvoidBottomInset: true,
           body: AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 180),
             decoration: BoxDecoration(
               // gradient: LinearGradient(
               //   colors: const [Color(0xff454756), Color(0xff0f101b)],
@@ -125,7 +132,7 @@ class _LandingPageState extends State<LandingPage> {
                           fit: BoxFit.fitHeight,
                         ),
                       ),
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 24),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -152,7 +159,7 @@ class _LandingPageState extends State<LandingPage> {
                         'start your podcast journey',
                         style: TextStyle(
                           fontWeight: FontWeight.w200,
-                          fontSize: 16.5,
+                          fontSize: 15,
                           color: Colors.white.withOpacity(0.8),
                           wordSpacing: 2.5,
                         ),
@@ -162,11 +169,11 @@ class _LandingPageState extends State<LandingPage> {
                     ],
                   ),
                 ),
-                const Positioned(
+                Positioned(
                   bottom: 0,
                   left: 0,
                   right: 0,
-                  child: LoginPopup(),
+                  child: LoginPopup(registrationCallback: toggleRegistrationCallback),
                 ),
               ],
             ),

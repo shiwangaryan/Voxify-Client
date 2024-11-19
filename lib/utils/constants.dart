@@ -6,4 +6,4 @@ class AppColors {
   static const bottomNavbarColor = Color(0xff0f101b);
 }
 
-const baseApiUrl = 'http://localhost:5000';
+const baseApiUrl = 'http://172.22.9.129:5000';
