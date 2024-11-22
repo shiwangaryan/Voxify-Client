@@ -16,11 +16,13 @@ class _LandingPageState extends State<LandingPage> {
   bool popupOpen = false;
   bool isRegistrationSelected = false;
 
-  void toggleRegistrationCallback() {  // to set the resizebottominset accoridngly
+  void toggleRegistrationCallback(bool value) {
+    // to set the resizebottominset accoridngly
     setState(() {
-      isRegistrationSelected = !isRegistrationSelected;
+      isRegistrationSelected = value;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -41,7 +43,7 @@ class _LandingPageState extends State<LandingPage> {
       },
       builder: (context, state) {
         return Scaffold(
-          resizeToAvoidBottomInset: isRegistrationSelected? false: true,
+          resizeToAvoidBottomInset: isRegistrationSelected ? false : true,
           // resizeToAvoidBottomInset: true,
           body: AnimatedContainer(
             duration: const Duration(milliseconds: 180),
@@ -75,9 +77,7 @@ class _LandingPageState extends State<LandingPage> {
                     children: [
                       popupOpen
                           ? SizedBox(height: height * 0.055)
-                          : const SizedBox(
-                              height: 0,
-                            ),
+                          : const SizedBox(height: 0),
                       popupOpen
                           ? Row(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -117,7 +117,7 @@ class _LandingPageState extends State<LandingPage> {
                             )
                           : const SizedBox(),
                       popupOpen
-                          ? const SizedBox(height: 45)
+                          ? const SizedBox(height: 50)
                           : SizedBox(height: height * 0.18),
                       AnimatedContainer(
                         duration: const Duration(milliseconds: 200),
@@ -173,7 +173,9 @@ class _LandingPageState extends State<LandingPage> {
                   bottom: 0,
                   left: 0,
                   right: 0,
-                  child: LoginPopup(registrationCallback: toggleRegistrationCallback),
+                  child: LoginPopup(
+                    registrationCallback: toggleRegistrationCallback,
+                  ),
                 ),
               ],
             ),

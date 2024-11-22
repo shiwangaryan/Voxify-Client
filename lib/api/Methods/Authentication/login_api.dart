@@ -26,7 +26,7 @@ Future<String> loginUsernameAPI(String username) async {
 }
 
 Future<String> loginPasswordAPI(String userId, String password) async {
-  final loginUserURI = Uri.parse('$baseApiUrl/auth/login/verifyUsername');
+  final loginUserURI = Uri.parse('$baseApiUrl/auth/login/verifyPassword');
 
   final response = await http.post(loginUserURI,
       headers: {'Content-Type': 'application/json'},
@@ -35,6 +35,7 @@ Future<String> loginPasswordAPI(String userId, String password) async {
   if (response.statusCode == 200) {
     var data = json.decode(response.body);
     final token = data['token'];
+    print("token: $token");
     return token;
   } else if (response.statusCode == 404) {
     print('Password not matched');
