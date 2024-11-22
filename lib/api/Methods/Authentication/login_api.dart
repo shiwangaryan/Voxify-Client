@@ -11,26 +11,33 @@ Future<String> loginUsernameAPI(String username) async {
     body: json.encode({"username": username}),
   );
 
+  print('Response: ${response.body}');
   if (response.statusCode == 200) {
     var data = json.decode(response.body);
     final userId = data['userId'];
     print('userId: $userId');
     return userId;
+  } else if (response.statusCode == 401) {
+    return "Email not verified, check you mail";
   } else if (response.statusCode == 404) {
     print('Username not found');
-    return "";
+    return "Username not found";
   } else {
     print('Error: ${response.body}');
-    return "";
+    return "Try again in few minutes";
   }
 }
 
 Future<String> loginPasswordAPI(String userId, String password) async {
   final loginUserURI = Uri.parse('$baseApiUrl/auth/login/verifyPassword');
 
-  final response = await http.post(loginUserURI,
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode({"userId": userId, "password": password}));
+  final response = await http.post(
+    loginUserURI,
+    headers: {'Content-Type': 'application/json'},
+    body: json.encode(
+      {"userId": userId, "password": password},
+    ),
+  );
 
   if (response.statusCode == 200) {
     var data = json.decode(response.body);

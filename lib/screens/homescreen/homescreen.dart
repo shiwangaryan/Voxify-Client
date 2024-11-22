@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:voxify_client/screens/create_page/create_podcast/create_podcast_screen.dart';
 import 'package:voxify_client/services/bloc/navigation/navigation_bloc.dart';
 import 'package:voxify_client/utils/constants.dart';
+import 'package:voxify_client/utils/widgets/global_appbar.dart';
 
 List<BottomNavigationBarItem> _buildBottomNavbarItems(int selectedIndex) => [
       BottomNavigationBarItem(
@@ -80,52 +80,9 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state) {
         return SafeArea(
           child: Scaffold(
-            appBar: PreferredSize(
+            appBar: const PreferredSize(
               preferredSize: const Size.fromHeight(60),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 20,
-                  right: 20,
-                  top: 25,
-                ),
-                child: AppBar(
-                  backgroundColor: AppColors.bgColor,
-                  flexibleSpace: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/images/logo.svg',
-                        width: 30,
-                        color: Colors.teal[200],
-                      ),
-                      const SizedBox(width: 10),
-                      const Text(
-                        'VOXIFY',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w800,
-                          letterSpacing: -0.3,
-                        ),
-                      ),
-                      const Spacer(),
-                      GestureDetector(
-                        child: const Icon(
-                          Icons.search,
-                          weight: 0.08,
-                          color: Colors.white,
-                          size: 29,
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      const Icon(
-                        Icons.person_outline_sharp,
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              child: GlobalAppBar(),
             ),
             backgroundColor: AppColors.bgColor,
             body: bottomNavbarScreens[state.tabIndex],
@@ -159,3 +116,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+

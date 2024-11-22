@@ -7,5 +7,5 @@ class AppColors {
 }
 
 // const baseApiUrl = 'http://172.22.9.129:5000';
-const baseApiUrl = 'http://192.168.1.103:5000';
+const baseApiUrl = 'http://172.22.33.127:5000';
 

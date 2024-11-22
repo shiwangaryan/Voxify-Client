@@ -3,9 +3,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:voxify_client/api/Methods/Authentication/login_api.dart';
 import 'package:voxify_client/api/Methods/Authentication/register_api.dart';
+import 'package:voxify_client/screens/homescreen/homescreen.dart';
 import 'package:voxify_client/services/bloc/auth_popup/auth_popup_bloc.dart';
 
 class LoginPopup extends StatefulWidget {
@@ -101,6 +103,25 @@ class _LoginPopupState extends State<LoginPopup>
       profileAssets[selectedProfilePic],
     );
     return response;
+  }
+
+  // --- save userId and token in local storage
+  void saveUserIdToken(String userId, String token) {
+    GetStorage storage = GetStorage();
+    storage.write('userId', userId);
+    storage.write('jwttoken', token);
+    storage.write('profilePic', selectedProfilePic);
+  }
+
+  void navigateToHomeScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return const HomeScreen();
+        },
+      ),
+    );
   }
 
   @override
@@ -384,14 +405,14 @@ class _LoginPopupState extends State<LoginPopup>
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: const Text(
-                                      'Account created successfully',
+                                      'Verification mail sent, please verify',
                                       style: TextStyle(
-                                        fontSize: 15.3,
+                                        fontSize: 15,
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
                                     backgroundColor: Colors.teal[700],
-                                    duration: const Duration(seconds: 2),
+                                    duration: const Duration(seconds: 4),
                                   ),
                                 );
                               } else {
@@ -400,7 +421,7 @@ class _LoginPopupState extends State<LoginPopup>
                                     content: Text(
                                       registerResponse,
                                       style: const TextStyle(
-                                        fontSize: 15.3,
+                                        fontSize: 15,
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
@@ -417,7 +438,7 @@ class _LoginPopupState extends State<LoginPopup>
                                         ? 'Fields cannot be empty'
                                         : 'Enter valid email id',
                                     style: const TextStyle(
-                                      fontSize: 15.3,
+                                      fontSize: 15,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -630,7 +651,7 @@ class _LoginPopupState extends State<LoginPopup>
                                       const SizedBox(height: 4),
                                       enteredWrongUsername
                                           ? Text(
-                                              ' Incorrect username',
+                                              ' Username not found',
                                               style: TextStyle(
                                                 fontSize: 11,
                                                 color: Colors.red[400],
@@ -774,7 +795,8 @@ class _LoginPopupState extends State<LoginPopup>
                                   usernameController.text,
                                 );
                                 print("userId: $userId");
-                                if (userId != "") usernameCorrect = true;
+                                if (userId.isNotEmpty & !userId.contains(' '))
+                                  usernameCorrect = true;
 
                                 if (usernameCorrect) {
                                   _animationController.forward();
@@ -782,6 +804,21 @@ class _LoginPopupState extends State<LoginPopup>
                                     usernameCorrect = true;
                                   });
                                   enteredWrongUsername = false;
+                                } else if (userId ==
+                                    'Email not verified, check you mail') {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        'Email not verified, check your mail',
+                                        style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      backgroundColor: Colors.redAccent,
+                                      duration: Duration(seconds: 2),
+                                    ),
+                                  );
                                 } else {
                                   setState(() {
                                     enteredWrongUsername = true;
@@ -796,12 +833,12 @@ class _LoginPopupState extends State<LoginPopup>
                                 );
 
                                 if (token != "") {
-                                  print("right password");
+                                  saveUserIdToken(userId, token);
                                   setState(() {
                                     enteredWrongPassword = false;
                                   });
+                                  navigateToHomeScreen(context);
                                 } else {
-                                  print('password wrong');
                                   setState(() {
                                     enteredWrongPassword = true;
                                   });
