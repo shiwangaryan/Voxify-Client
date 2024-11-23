@@ -47,8 +47,8 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (context) => NavigationBloc()),
             BlocProvider(create: (context) => AuthPopupBloc()),
           ],
-          child: const LandingPage(),
-          // child: userId.isNotEmpty ? const HomeScreen() : const LandingPage(),
+          // child: const LandingPage(),
+          child: userId.isNotEmpty ? const HomeScreen() : const LandingPage(),
         ),
       ),
     );

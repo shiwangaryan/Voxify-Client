@@ -27,7 +27,7 @@ class _LoginPopupState extends State<LoginPopup>
   final GlobalKey<FormState> _loginUsernameFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> _loginPasswordFormKey = GlobalKey<FormState>();
   // List<String> profileAssets = ['dog', 'cat', 'koala', 'dog'];
-  List<String> profileAssets = ['dog1', 'cat1', 'wolf', 'koala'];
+  List<String> profileAssets = ['dog1', 'cat1', 'wolf', 'koala', 'panda1'];
   bool loginPopup = false;
   bool usernameCorrect = false;
   bool isRegistrationSelected = false;
@@ -110,7 +110,7 @@ class _LoginPopupState extends State<LoginPopup>
     GetStorage storage = GetStorage();
     storage.write('userId', userId);
     storage.write('jwttoken', token);
-    storage.write('profilePic', selectedProfilePic);
+    storage.write('profilePic', profileAssets[selectedProfilePic]);
   }
 
   void navigateToHomeScreen(BuildContext context) {
@@ -153,7 +153,7 @@ class _LoginPopupState extends State<LoginPopup>
       builder: (context, state) {
         return AnimatedContainer(
           curve: Curves.easeInOut,
-          duration: const Duration(milliseconds: 250),
+          duration: const Duration(milliseconds: 160),
           height: loginPopup
               ? isRegistrationSelected
                   ? height
@@ -210,12 +210,12 @@ class _LoginPopupState extends State<LoginPopup>
                                 clearFields();
                                 FocusScope.of(context).unfocus();
                                 await Future.delayed(
-                                    const Duration(milliseconds: 100));
+                                    const Duration(milliseconds: 80));
                                 setState(() {
                                   isRegistrationSelected = false;
                                 });
                                 await Future.delayed(
-                                    const Duration(milliseconds: 180));
+                                    const Duration(milliseconds: 160));
                                 setState(() {
                                   showLogin = true;
                                 });
@@ -313,65 +313,63 @@ class _LoginPopupState extends State<LoginPopup>
                               height: 65,
                               width: min(width - width * 0.1 - 110,
                                   72 * profileAssets.length.toDouble()),
-                              child: Expanded(
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: profileAssets.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          selectedProfilePic = index;
-                                        });
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.all(10),
-                                        margin: const EdgeInsets.only(left: 12),
-                                        width: 65,
-                                        height: 60,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: selectedProfilePic == index
-                                              ? Colors.blueGrey[800]
-                                              : Colors.blueGrey[500],
-                                        ),
-                                        // child: Image.asset(
-                                        //   'assets/images/${profileAssets[index]}_profile.png',
-                                        // ),
-                                        child: Stack(
-                                          children: [
-                                            Center(
-                                              child: Opacity(
-                                                opacity:
-                                                    selectedProfilePic == index
-                                                        ? 0.4
-                                                        : 1,
-                                                child: SizedBox(
-                                                  height: 60,
-                                                  child: Image.asset(
-                                                    'assets/images/${profileAssets[index]}_shape.png',
-                                                    fit: BoxFit.cover,
-                                                  ),
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: profileAssets.length,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        selectedProfilePic = index;
+                                      });
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(10),
+                                      margin: const EdgeInsets.only(left: 12),
+                                      width: 65,
+                                      height: 60,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: selectedProfilePic == index
+                                            ? Colors.blueGrey[800]
+                                            : Colors.blueGrey[500],
+                                      ),
+                                      // child: Image.asset(
+                                      //   'assets/images/${profileAssets[index]}_profile.png',
+                                      // ),
+                                      child: Stack(
+                                        children: [
+                                          Center(
+                                            child: Opacity(
+                                              opacity:
+                                                  selectedProfilePic == index
+                                                      ? 0.4
+                                                      : 1,
+                                              child: SizedBox(
+                                                height: 60,
+                                                child: Image.asset(
+                                                  'assets/images/${profileAssets[index]}_shape.png',
+                                                  fit: BoxFit.cover,
                                                 ),
                                               ),
                                             ),
-                                            if (selectedProfilePic == index)
-                                              const Positioned(
-                                                right: 0,
-                                                bottom: 13,
-                                                left: 0,
-                                                child: Icon(
-                                                  Icons.check,
-                                                  color: Colors.white,
-                                                  size: 30,
-                                                ),
+                                          ),
+                                          if (selectedProfilePic == index)
+                                            const Positioned(
+                                              right: 0,
+                                              bottom: 13,
+                                              left: 0,
+                                              child: Icon(
+                                                Icons.check,
+                                                color: Colors.white,
+                                                size: 30,
                                               ),
-                                          ],
-                                        ),
+                                            ),
+                                        ],
                                       ),
-                                    );
-                                  },
-                                ),
+                                    ),
+                                  );
+                                },
                               ),
                             )
                           ],
@@ -383,7 +381,7 @@ class _LoginPopupState extends State<LoginPopup>
                           onTap: () async {
                             FocusScope.of(context).unfocus();
                             await Future.delayed(
-                                const Duration(milliseconds: 100));
+                                const Duration(milliseconds: 80));
                             int validate =
                                 _validateForm(); // 1 means true, 0 means empty field,
                             //-1 means field is not valid
@@ -396,7 +394,7 @@ class _LoginPopupState extends State<LoginPopup>
                                   isRegistrationSelected = false;
                                 });
                                 await Future.delayed(
-                                    const Duration(milliseconds: 180));
+                                    const Duration(milliseconds: 160));
                                 setState(() {
                                   showLogin = true;
                                 });
@@ -475,13 +473,13 @@ class _LoginPopupState extends State<LoginPopup>
                             clearFields();
                             FocusScope.of(context).unfocus();
                             await Future.delayed(
-                                const Duration(milliseconds: 100));
+                                const Duration(milliseconds: 80));
                             widget.registrationCallback(false);
                             setState(() {
                               isRegistrationSelected = false;
                             });
                             await Future.delayed(
-                                const Duration(milliseconds: 180));
+                                const Duration(milliseconds: 160));
                             setState(() {
                               showLogin = true;
                             });
@@ -505,7 +503,7 @@ class _LoginPopupState extends State<LoginPopup>
                   :
                   // ------ LOGIN POPUP
                   AnimatedOpacity(
-                      duration: const Duration(milliseconds: 300),
+                      duration: const Duration(milliseconds: 210),
                       opacity: showLogin ? 1 : 0,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -868,7 +866,7 @@ class _LoginPopupState extends State<LoginPopup>
                             onTap: () async {
                               FocusScope.of(context).unfocus();
                               await Future.delayed(
-                                  const Duration(milliseconds: 100));
+                                  const Duration(milliseconds: 80));
                               clearFields();
                               widget.registrationCallback(true);
                               setState(() {

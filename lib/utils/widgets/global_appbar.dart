@@ -10,8 +10,9 @@ class GlobalAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  List<String> profileAssets = ['dog1', 'cat1', 'wolf', 'koala'];
     GetStorage storage = GetStorage();
-    final profilePic = storage.read('profilePic') ?? 'dog1';
+     String profilePic = storage.read('profilePic')?? 'dog1'; // fetch the profilepic from server when user directly signin in the app and there is no profilepic data
     return Padding(
       padding: const EdgeInsets.only(
         left: 20,
@@ -49,7 +50,7 @@ class GlobalAppBar extends StatelessWidget {
             ),
             const SizedBox(width: 12),
             Container(
-              padding: const EdgeInsets.all(5),
+              padding: const EdgeInsets.all(6),
               height: 60,
               decoration: BoxDecoration(
                   shape: BoxShape.circle, color: Colors.blueGrey[500]),

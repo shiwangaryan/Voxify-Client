@@ -46,7 +46,7 @@ class _LandingPageState extends State<LandingPage> {
           resizeToAvoidBottomInset: isRegistrationSelected ? false : true,
           // resizeToAvoidBottomInset: true,
           body: AnimatedContainer(
-            duration: const Duration(milliseconds: 180),
+            duration: const Duration(milliseconds: 120),
             decoration: BoxDecoration(
               // gradient: LinearGradient(
               //   colors: const [Color(0xff454756), Color(0xff0f101b)],

@@ -20,20 +20,20 @@ class _GestStartedButtonState extends State<GestStartedButton> {
         setState(() {
           buttonTapped = true;
         });
-        Future.delayed(const Duration(milliseconds: 220), () {
+        Future.delayed(const Duration(milliseconds: 170), () {
           setState(() {
             buttonTapped = false;
           });
         });
         Future.delayed(
-          const Duration(milliseconds: 200),
+          const Duration(milliseconds: 170),
           () {
             context.read<AuthPopupBloc>().add(AuthPopupChangedTo(1));
           },
         );
       },
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 220),
+        duration: const Duration(milliseconds: 180),
         width: 170,
         height: 50,
         decoration: BoxDecoration(
