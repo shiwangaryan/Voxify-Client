@@ -12,7 +12,6 @@ List<BottomNavigationBarItem> _buildBottomNavbarItems(int selectedIndex) => [
           padding: const EdgeInsets.only(bottom: 1.0),
           child: Icon(
             selectedIndex == 0 ? Icons.home_filled : Symbols.home_filled_sharp,
-            // selectedIndex == 0 ? Icons.home_filled : Icons.home_outlined,
           ),
         ),
         label: 'Home',
@@ -24,23 +23,25 @@ List<BottomNavigationBarItem> _buildBottomNavbarItems(int selectedIndex) => [
             selectedIndex == 1 ? Icons.explore : Symbols.explore_sharp,
           ),
         ),
-        label: 'Discover',
+        label: 'Explore',
       ),
       BottomNavigationBarItem(
         icon: Padding(
           padding: const EdgeInsets.only(bottom: 0.0),
           child: Icon(
-            selectedIndex == 2 ? Icons.mic : Symbols.mic_sharp,
+            weight: 400,
+            selectedIndex == 2 ? Icons.mic_outlined : Symbols.mic_sharp,
           ),
         ),
         label: 'Create',
       ),
       BottomNavigationBarItem(
         icon: Padding(
-          padding: const EdgeInsets.only(bottom: 1.0),
+          padding: const EdgeInsets.only(bottom: 1.4),
           child: Icon(
+            size: 25.6,
             selectedIndex == 3
-                ? Icons.library_music
+                ? Icons.library_music_sharp
                 : Symbols.library_music_sharp,
           ),
         ),
@@ -81,7 +82,7 @@ class HomeScreen extends StatelessWidget {
         return SafeArea(
           child: Scaffold(
             appBar: const PreferredSize(
-              preferredSize: const Size.fromHeight(60),
+              preferredSize: Size.fromHeight(60),
               child: GlobalAppBar(),
             ),
             backgroundColor: AppColors.bgColor,
@@ -97,11 +98,11 @@ class HomeScreen extends StatelessWidget {
                 currentIndex: state.tabIndex,
                 selectedItemColor: Colors.white,
                 unselectedItemColor: Colors.white.withOpacity(0.7),
-                selectedFontSize: 12,
-                unselectedFontSize: 12,
-                selectedLabelStyle: TextStyle(letterSpacing: -0.2),
+                selectedFontSize: 10,
+                unselectedFontSize: 10,
                 iconSize: 27,
-                selectedIconTheme: const IconThemeData(size: 27),
+                selectedIconTheme: const IconThemeData(size: 27, weight: 100),
+                unselectedIconTheme: const IconThemeData(size: 27, weight: 250),
                 onTap: (index) {
                   context
                       .read<NavigationBloc>()
@@ -116,4 +117,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-

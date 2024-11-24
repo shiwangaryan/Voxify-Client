@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:voxify_client/utils/constants.dart';
 
@@ -42,7 +43,10 @@ Future<String> loginPasswordAPI(String userId, String password) async {
   if (response.statusCode == 200) {
     var data = json.decode(response.body);
     final token = data['token'];
-    print("token: $token");
+    final storage = GetStorage();
+    await storage.write('profilePicName', data['profilePicName']);
+
+    print("jwtToken: $token");
     return token;
   } else if (response.statusCode == 404) {
     print('Password not matched');

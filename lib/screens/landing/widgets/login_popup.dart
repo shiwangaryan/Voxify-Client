@@ -26,7 +26,6 @@ class _LoginPopupState extends State<LoginPopup>
   // TextEditingController realNameController = TextEditingController();
   final GlobalKey<FormState> _loginUsernameFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> _loginPasswordFormKey = GlobalKey<FormState>();
-  // List<String> profileAssets = ['dog', 'cat', 'koala', 'dog'];
   List<String> profileAssets = ['dog1', 'cat1', 'wolf', 'koala', 'panda1'];
   bool loginPopup = false;
   bool usernameCorrect = false;
@@ -106,11 +105,10 @@ class _LoginPopupState extends State<LoginPopup>
   }
 
   // --- save userId and token in local storage
-  void saveUserIdToken(String userId, String token) {
-    GetStorage storage = GetStorage();
-    storage.write('userId', userId);
-    storage.write('jwttoken', token);
-    storage.write('profilePic', profileAssets[selectedProfilePic]);
+  void saveUserIdToken(String userId, String token)async {
+    final storage = GetStorage();
+    await storage.write('userId', userId);
+    await storage.write('jwtToken', token);
   }
 
   void navigateToHomeScreen(BuildContext context) {
@@ -215,7 +213,7 @@ class _LoginPopupState extends State<LoginPopup>
                                   isRegistrationSelected = false;
                                 });
                                 await Future.delayed(
-                                    const Duration(milliseconds: 160));
+                                    const Duration(milliseconds: 180));
                                 setState(() {
                                   showLogin = true;
                                 });
@@ -394,7 +392,7 @@ class _LoginPopupState extends State<LoginPopup>
                                   isRegistrationSelected = false;
                                 });
                                 await Future.delayed(
-                                    const Duration(milliseconds: 160));
+                                    const Duration(milliseconds: 180));
                                 setState(() {
                                   showLogin = true;
                                 });
@@ -479,7 +477,7 @@ class _LoginPopupState extends State<LoginPopup>
                               isRegistrationSelected = false;
                             });
                             await Future.delayed(
-                                const Duration(milliseconds: 160));
+                                const Duration(milliseconds: 180));
                             setState(() {
                               showLogin = true;
                             });
@@ -503,7 +501,7 @@ class _LoginPopupState extends State<LoginPopup>
                   :
                   // ------ LOGIN POPUP
                   AnimatedOpacity(
-                      duration: const Duration(milliseconds: 210),
+                      duration: const Duration(milliseconds: 240),
                       opacity: showLogin ? 1 : 0,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,

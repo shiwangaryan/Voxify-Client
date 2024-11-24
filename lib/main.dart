@@ -12,6 +12,7 @@ import 'package:voxify_client/utils/constants.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
+
   runApp(const MyApp());
 }
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    GetStorage storage = GetStorage();
+    final storage = GetStorage();
     String userId = storage.read('userId') ?? "";
 
     SystemChrome.setSystemUIOverlayStyle(
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          textTheme: GoogleFonts.poppinsTextTheme(ThemeData.light().textTheme),
+          textTheme: GoogleFonts.robotoTextTheme(ThemeData.light().textTheme),
           useMaterial3: true,
         ),
         debugShowCheckedModeBanner: false,
