@@ -18,48 +18,54 @@ class GlobalAppBar extends StatelessWidget {
         left: 20,
         right: 20,
         top: 25,
+        bottom: 8,
       ),
       child: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: AppColors.bgColor,
-        flexibleSpace: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              'assets/images/logo.svg',
-              width: 30,
-              height: 30,
-              color: Colors.teal[200],
-            ),
-            const SizedBox(width: 10),
-            const Text(
-              'VOXIFY',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 19,
-                fontWeight: FontWeight.w800,
-                letterSpacing: -0.5,
+        elevation: 0,
+        flexibleSpace: Container(
+          color: AppColors.bgColor,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SvgPicture.asset(
+                'assets/images/logo.svg',
+                width: 30,
+                height: 30,
+                color: Colors.teal[200],
               ),
-            ),
-            const Spacer(),
-            GestureDetector(
-              child: const Icon(
-                Symbols.search_sharp,
-                weight: 15,
-                color: Colors.white,
-                size: 30,
+              const SizedBox(width: 10),
+              const Text(
+                'VOXIFY',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 19,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: -0.5,
+                ),
               ),
-            ),
-            const SizedBox(width: 10),
-            Container(
-              padding: const EdgeInsets.all(6),
-              height: 60,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: Colors.blueGrey[500]),
-              child: Center(
-                child: Image.asset('assets/images/${profilePicName}_shape.png'),
+              const Spacer(),
+              GestureDetector(
+                child: const Icon(
+                  Symbols.search_sharp,
+                  weight: 15,
+                  color: Colors.white,
+                  size: 30,
+                ),
               ),
-            ),
-          ],
+              const SizedBox(width: 10),
+              Container(
+                padding: const EdgeInsets.all(6),
+                height: 60,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle, color: Colors.blueGrey[500]),
+                child: Center(
+                  child: Image.asset('assets/images/${profilePicName}_shape.png'),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

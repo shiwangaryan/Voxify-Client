@@ -82,7 +82,7 @@ class HomeScreen extends StatelessWidget {
         return SafeArea(
           child: Scaffold(
             appBar: const PreferredSize(
-              preferredSize: Size.fromHeight(60),
+              preferredSize: Size.fromHeight(70),
               child: GlobalAppBar(),
             ),
             backgroundColor: AppColors.bgColor,
