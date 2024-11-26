@@ -327,27 +327,11 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
   String generatedImageUrl = '';
 
   Future<void> getImageUrl(String prompt) async {
-    // String updatedPrompt = prompt.replaceAll(' ', '_');
-    // String url = 'https://image.pollinations.ai/prompt/$updatedPrompt';
-
-    // Poll the website to check if the image is ready
-    while (true) {
-      final response = await http.head(Uri.parse(url));
-      if (response.statusCode == 200) {
-        // Image is ready
-        setState(() {
-          generatedImageUrl = url;
-          isLoading = false;
-        });
-        break;
-      }
-      await Future.delayed(const Duration(seconds: 1)); // Wait before retrying
-    }
-    // String url = await generateImageAPI(prompt);
-    // setState(() {
-    //   generatedImageUrl = url;
-    //   isLoading = false;
-    // });
+    String url = await generateImageAPI(prompt);
+    setState(() {
+      generatedImageUrl = url;
+      isLoading = false;
+    });
   }
 
   @override
