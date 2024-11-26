@@ -44,16 +44,9 @@ class _LandingPageState extends State<LandingPage> {
       builder: (context, state) {
         return Scaffold(
           resizeToAvoidBottomInset: isRegistrationSelected ? false : true,
-          // resizeToAvoidBottomInset: true,
           body: AnimatedContainer(
             duration: const Duration(milliseconds: 120),
             decoration: BoxDecoration(
-              // gradient: LinearGradient(
-              //   colors: const [Color(0xff454756), Color(0xff0f101b)],
-              //   stops: popupOpen ? const [0.07, 0.8] : const [0.03, 0.28],
-              //   begin: Alignment.topLeft,
-              //   end: Alignment.bottomRight,
-              // ),
               gradient: RadialGradient(
                 colors: const [Color(0xFF383A45), Color(0xff0f101b)],
                 stops: !popupOpen ? [0.15, 1] : [0.4, 1],

@@ -105,20 +105,32 @@ class _LoginPopupState extends State<LoginPopup>
   }
 
   // --- save userId and token in local storage
-  void saveUserIdToken(String userId, String token)async {
+  void saveUserIdToken(String userId, String token) async {
     final storage = GetStorage();
     await storage.write('userId', userId);
     await storage.write('jwtToken', token);
   }
 
   void navigateToHomeScreen(BuildContext context) {
-    Navigator.push(
+    Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(
-        builder: (context) {
-          return const HomeScreen();
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const HomeScreen(),
+        transitionDuration: const Duration(milliseconds: 200),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(1.5,0);
+          const end = Offset.zero;
+          const curve = Curves.easeInOut;
+          var tween =
+              Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: child,
+          );
         },
       ),
+      (route) => false,
     );
   }
 

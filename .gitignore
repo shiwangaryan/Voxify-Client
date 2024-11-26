@@ -31,6 +31,9 @@ migrate_working_dir/
 .pub/
 /build/
 
+# constant 
+/lib/screens/create_page/create_podcast/constants.dart
+
 # Symbolication related
 app.*.symbols
 
