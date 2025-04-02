@@ -11,8 +11,7 @@ import 'package:voxify_client/screens/homescreen/homescreen.dart';
 import 'package:voxify_client/services/bloc/auth_popup/auth_popup_bloc.dart';
 
 class LoginPopup extends StatefulWidget {
-  final void Function(bool value) registrationCallback;
-  const LoginPopup({super.key, required this.registrationCallback});
+  const LoginPopup({super.key});
 
   @override
   State<LoginPopup> createState() => _LoginPopupState();
@@ -119,7 +118,7 @@ class _LoginPopupState extends State<LoginPopup>
             const HomeScreen(),
         transitionDuration: const Duration(milliseconds: 200),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          const begin = Offset(1.5,0);
+          const begin = Offset(1.5, 0);
           const end = Offset.zero;
           const curve = Curves.easeInOut;
           var tween =
@@ -167,7 +166,8 @@ class _LoginPopupState extends State<LoginPopup>
           height: loginPopup
               ? isRegistrationSelected
                   ? height
-                  : max(400, height * 0.48)
+                  // : max(400, height * 0.48)
+                  : min(height * 0.9, 336 + keyboardHeight + 40)
               : 0,
           decoration: BoxDecoration(
             color: const Color(0xff0f101b),
@@ -216,7 +216,6 @@ class _LoginPopupState extends State<LoginPopup>
                           children: [
                             InkWell(
                               onTap: () async {
-                                widget.registrationCallback(false);
                                 clearFields();
                                 FocusScope.of(context).unfocus();
                                 await Future.delayed(
@@ -225,7 +224,7 @@ class _LoginPopupState extends State<LoginPopup>
                                   isRegistrationSelected = false;
                                 });
                                 await Future.delayed(
-                                    const Duration(milliseconds: 180));
+                                    const Duration(milliseconds: 190));
                                 setState(() {
                                   showLogin = true;
                                 });
@@ -399,12 +398,11 @@ class _LoginPopupState extends State<LoginPopup>
                               String registerResponse = await registerUser();
                               if (registerResponse == "true") {
                                 clearFields();
-                                widget.registrationCallback(false);
                                 setState(() {
                                   isRegistrationSelected = false;
                                 });
                                 await Future.delayed(
-                                    const Duration(milliseconds: 180));
+                                    const Duration(milliseconds: 190));
                                 setState(() {
                                   showLogin = true;
                                 });
@@ -475,7 +473,7 @@ class _LoginPopupState extends State<LoginPopup>
                             ),
                           ),
                         ),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: 10),
 
                         // --- sign in ---
                         GestureDetector(
@@ -484,12 +482,11 @@ class _LoginPopupState extends State<LoginPopup>
                             FocusScope.of(context).unfocus();
                             await Future.delayed(
                                 const Duration(milliseconds: 80));
-                            widget.registrationCallback(false);
                             setState(() {
                               isRegistrationSelected = false;
                             });
                             await Future.delayed(
-                                const Duration(milliseconds: 180));
+                                const Duration(milliseconds: 190));
                             setState(() {
                               showLogin = true;
                             });
@@ -564,27 +561,27 @@ class _LoginPopupState extends State<LoginPopup>
                                   : const SizedBox(),
                             ],
                           ),
-                          const SizedBox(height: 26),
+                          const SizedBox(height: 16),
                           const Text(
                             'Login',
                             style: TextStyle(
-                              fontSize: 34,
+                              fontSize: 30,
                               fontWeight: FontWeight.w700,
                               color: Colors.white,
                             ),
                           ),
-                          const SizedBox(height: 2),
+                          const SizedBox(height: 0),
                           Text(
                             !usernameCorrect
                                 ? 'Continue with username'
                                 : 'Enter your password',
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 11,
                               fontWeight: FontWeight.w600,
                               color: Colors.white.withOpacity(0.6),
                             ),
                           ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 18),
                           SizedBox(
                             height: 80,
                             child: Stack(
@@ -606,9 +603,11 @@ class _LoginPopupState extends State<LoginPopup>
                                             }
                                             return 'Username cannot be empty';
                                           },
+                                          scrollPadding: const EdgeInsets.all(0),
                                           maxLength: 40,
                                           cursorColor: Colors.teal[100],
                                           decoration: InputDecoration(
+                                          
                                             counterText: '',
                                             enabledBorder: OutlineInputBorder(
                                               borderRadius:
@@ -647,6 +646,11 @@ class _LoginPopupState extends State<LoginPopup>
                                               color:
                                                   Colors.white.withOpacity(0.4),
                                               fontSize: 15,
+                                            ),
+                                            errorStyle: TextStyle(
+                                              color:
+                                                  Colors.red.withOpacity(0.8),
+                                              fontSize: 10,
                                             ),
                                           ),
                                           style: const TextStyle(
@@ -777,7 +781,7 @@ class _LoginPopupState extends State<LoginPopup>
                                           Text(
                                             'Forgot password?',
                                             style: TextStyle(
-                                              fontSize: 11,
+                                              fontSize: 10,
                                               color: Colors.blue[200],
                                             ),
                                           ),
@@ -790,8 +794,8 @@ class _LoginPopupState extends State<LoginPopup>
                             ),
                           ),
                           usernameCorrect
-                              ? const SizedBox(height: 16)
-                              : const SizedBox(height: 10),
+                              ? const SizedBox(height: 0)
+                              : const SizedBox(height: 0),
                           InkWell(
                             onTap: () async {
                               FocusScope.of(context).unfocus();
@@ -803,8 +807,9 @@ class _LoginPopupState extends State<LoginPopup>
                                   usernameController.text,
                                 );
                                 print("userId: $userId");
-                                if (userId.isNotEmpty & !userId.contains(' '))
+                                if (userId.isNotEmpty & !userId.contains(' ')) {
                                   usernameCorrect = true;
+                                }
 
                                 if (usernameCorrect) {
                                   _animationController.forward();
@@ -871,14 +876,13 @@ class _LoginPopupState extends State<LoginPopup>
                               ),
                             ),
                           ),
-                          const SizedBox(height: 12),
+                          const SizedBox(height: 8),
                           GestureDetector(
                             onTap: () async {
                               FocusScope.of(context).unfocus();
                               await Future.delayed(
                                   const Duration(milliseconds: 80));
                               clearFields();
-                              widget.registrationCallback(true);
                               setState(() {
                                 showLogin = false;
                                 isRegistrationSelected = true;
@@ -896,7 +900,8 @@ class _LoginPopupState extends State<LoginPopup>
                                 ),
                               ],
                             ),
-                          )
+                          ),
+                          // SizedBox(height: keyboardHeight + 20),
                         ],
                       ),
                     ),

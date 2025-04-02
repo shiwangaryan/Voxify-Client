@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:voxify_client/api/Methods/Create_Podcast/generateImage.dart';
 import 'package:voxify_client/screens/create_page/create_podcast/constants.dart';
 import 'package:voxify_client/utils/constants.dart';
-import 'package:http/http.dart' as http;
 
 class CreatePodcastScreen extends StatefulWidget {
   const CreatePodcastScreen({super.key});

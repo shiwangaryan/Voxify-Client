@@ -16,12 +16,6 @@ class _LandingPageState extends State<LandingPage> {
   bool popupOpen = false;
   bool isRegistrationSelected = false;
 
-  void toggleRegistrationCallback(bool value) {
-    // to set the resizebottominset accoridngly
-    setState(() {
-      isRegistrationSelected = value;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +37,8 @@ class _LandingPageState extends State<LandingPage> {
       },
       builder: (context, state) {
         return Scaffold(
-          resizeToAvoidBottomInset: isRegistrationSelected ? false : true,
+          // resizeToAvoidBottomInset: isRegistrationSelected ? false : true,
+          resizeToAvoidBottomInset: false,  
           body: AnimatedContainer(
             duration: const Duration(milliseconds: 120),
             decoration: BoxDecoration(
@@ -167,7 +162,6 @@ class _LandingPageState extends State<LandingPage> {
                   left: 0,
                   right: 0,
                   child: LoginPopup(
-                    registrationCallback: toggleRegistrationCallback,
                   ),
                 ),
               ],
